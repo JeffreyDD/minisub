@@ -2,7 +2,7 @@
 MiniSub is a project to learn about embedded systems development in a challenging underwater environment. It is built using [ROS2](https://www.ros.org/) and [MicroROS](https://micro.ros.org/).
 
 ## Project status
-The project is currently in a "feasability research" phase, where I'm just building a simple test device.
+The project is currently in a "feasibility research" phase, where I'm just building a simple test device.
 
 ## Project goals
 * To design an open source autonomous underwater vehicle using affordable, off-the-shelf and 3d printed components which is able to dive at least 50 meters deep. 
