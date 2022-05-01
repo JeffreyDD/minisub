@@ -1,0 +1,19 @@
+<launch>
+
+  <arg name="start_agent" default="false"/>
+  <arg name="teleop_joy" default="false"/>
+
+  <group if="$(var start_agent)">
+    <node pkg="micro_ros_agent" exec="micro_ros_agent" args="udp4 -p 8888"/>
+  </group>
+
+  <group if="$(var teleop_joy)">
+    <node pkg="joy" exec="joy_node"/>
+    <node pkg="teleop_twist_joy" exec="teleop_node">
+      <param name="require_enable_button" value="false"/>
+      <param name="axis_linear.x" value="1"/>
+      <param name="axis_angular.yaw" value="0"/>
+    </node>
+  </group>
+
+</launch>
