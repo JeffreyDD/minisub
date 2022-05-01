@@ -14,3 +14,13 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra:
+  analytics:
+    provider: google
+    property: G-C7R8944FZY
+  consent:
+    cookies:
+      analytics:
+        name: Google Analytics
+        checked: false
