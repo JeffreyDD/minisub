@@ -1,0 +1,67 @@
+- name: Configure system for minisub
+  hosts: localhost
+  become: true
+  vars:
+    packages:
+    - ansible
+    - terminator
+    - mate-desktop
+  tasks:
+  - name: Configure passwordless sudo
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^%sudo'
+      line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+      validate: 'visudo -cf %s'
+
+  - name: Update apt packages
+    apt:
+      name: "*"
+      state: latest
+      update_cache: true
+
+  - name: Install additional packages {{ packages | join(', ') }}
+    apt:
+      state: present
+      name: "{{ packages }}"
+
+- name: Install ROS environment using system packages
+  hosts: localhost
+  become: true
+  vars:
+    ros_version: "{{ ros_distro | default('galactic') }}"
+    ros_packages:
+    - ros-{{ ros_version }}-desktop
+    - ros-{{ ros_version }}-key-teleop
+    - ros-{{ ros_version }}-joy-teleop
+    - ros-{{ ros_version }}-turtlesim
+    - ros-{{ ros_version }}-turtle-tf2-cpp
+    ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
+    ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
+  tasks:
+  # - package:
+  #     state: present
+  #     name: 
+  #     - curl 
+  #     - gnupg
+  #     - lsb-release
+
+  - name: Add ROS apt key to keyring file
+    apt_key:
+      url: "{{ ros_key_url }}"
+      keyring: "{{ ros_keyring }}"
+      state: present
+
+  - name: Add ROS apt repository
+    vars:
+      arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+    apt_repository:
+      repo: "deb [arch={{arch}} signed-by={{ ros_keyring }}] http://packages.ros.org/ros2/ubuntu {{ hostvars[inventory_hostname]['ansible_facts']['distribution_release'] }} main"
+      state: present
+  
+  - name: Install ROS apt packages {{ ros_packages | join(', ') }}
+    apt:
+      state: present
+      update_cache: true
+      name: "{{ ros_packages }}"
