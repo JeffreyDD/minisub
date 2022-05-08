@@ -1,0 +1,27 @@
+version: "2"
+
+services:
+  uros-agent:
+    image: microros/micro-ros-agent:galactic
+    command: udp4 -p 8888
+    network_mode: host
+  
+  ros1-master:
+    image: ros:noetic-ros-core
+    command: roscore
+    network_mode: host
+
+  ros1-bridge:
+    depends_on: 
+    - ros1-master
+    image: ros:galactic-ros1-bridge
+    command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
+    network_mode: host
+
+  ros-ws-bridge:
+    image: uobflightlabstarling/rosbridge-suite:latest
+    volumes:
+    - ./rosbridge_websocket_launch.xml:/opt/ros/foxy/share/rosbridge_server/launch/rosbridge_websocket_launch.xml
+    ports:
+    - 9090:9090
+    network_mode: host

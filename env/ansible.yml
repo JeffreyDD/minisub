@@ -3,10 +3,18 @@
   become: true
   vars:
     packages:
+    - openssh-server
     - ansible
-    - terminator
+    - docker.io
+    - docker-compose
+    - curl 
+    - gnupg
+    - lsb-release
+    desktop_packages:
     - mate-desktop
+    - terminator
   tasks:
+
   - name: Configure passwordless sudo
     lineinfile:
       dest: /etc/sudoers
@@ -21,7 +29,13 @@
       state: latest
       update_cache: true
 
-  - name: Install additional packages {{ packages | join(', ') }}
+  - name: Install system packages {{ packages | join(', ') }}
+    apt:
+      state: present
+      name: "{{ packages }}"
+
+  - name: Install system packages {{ packages | join(', ') }}
+    when: desktop | default(False) == True
     apt:
       state: present
       name: "{{ packages }}"
@@ -42,12 +56,6 @@
     ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
     ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
   tasks:
-  # - package:
-  #     state: present
-  #     name: 
-  #     - curl 
-  #     - gnupg
-  #     - lsb-release
 
   - name: Add ROS apt key to keyring file
     apt_key:
