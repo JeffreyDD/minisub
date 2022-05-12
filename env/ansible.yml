@@ -47,6 +47,7 @@
   vars:
     ros_version: "{{ ros_distro | default('galactic') }}"
     ros_packages:
+    - ros-{{ ros_version }}-ros-base
     - ros-{{ ros_version }}-key-teleop
     - ros-{{ ros_version }}-turtlesim
     - ros-{{ ros_version }}-turtle-tf2-cpp
