@@ -34,11 +34,12 @@
       state: present
       name: "{{ packages }}"
 
-  - name: Install system packages {{ packages | join(', ') }}
+  - name: Install system packages {{ desktop_packages | join(', ') }}
     when: desktop | default(False) == True
     apt:
       state: present
-      name: "{{ packages }}"
+      name: "{{ desktop_packages }}"
+
 
 - name: Install ROS environment using system packages
   hosts: localhost
@@ -46,13 +47,14 @@
   vars:
     ros_version: "{{ ros_distro | default('galactic') }}"
     ros_packages:
-    - ros-{{ ros_version }}-desktop
     - ros-{{ ros_version }}-key-teleop
-    - ros-{{ ros_version }}-joy-teleop
     - ros-{{ ros_version }}-turtlesim
     - ros-{{ ros_version }}-turtle-tf2-cpp
     - ros-{{ ros_version }}-tf2-tools 
     - ros-{{ ros_version }}-tf-transformations
+    ros_desktop_packages:
+    - ros-{{ ros_version }}-desktop
+    - ros-{{ ros_version }}-joy-teleop
     ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
     ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
   tasks:
@@ -73,5 +75,10 @@
   - name: Install ROS apt packages {{ ros_packages | join(', ') }}
     apt:
       state: present
-      update_cache: true
       name: "{{ ros_packages }}"
+
+  - name: Install ROS desktop apt packages {{ ros_desktop_packages | join(', ') }}
+    apt:
+      state: present
+      when: desktop | default(False) == True
+      name: "{{ ros_desktop_packages }}"
