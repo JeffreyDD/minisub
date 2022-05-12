@@ -78,7 +78,7 @@
       name: "{{ ros_packages }}"
 
   - name: Install ROS desktop apt packages {{ ros_desktop_packages | join(', ') }}
+    when: desktop | default(False) == True
     apt:
       state: present
-      when: desktop | default(False) == True
       name: "{{ ros_desktop_packages }}"
