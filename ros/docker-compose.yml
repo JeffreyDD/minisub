@@ -5,11 +5,13 @@ services:
     image: microros/micro-ros-agent:galactic
     command: udp4 -p 8888
     network_mode: host
+    restart: always
   
   ros1-master:
     image: ros:noetic-ros-core
     command: roscore
     network_mode: host
+    restart: always
 
   ros1-bridge:
     depends_on: 
@@ -17,6 +19,7 @@ services:
     image: ros:galactic-ros1-bridge
     command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
     network_mode: host
+    restart: always
 
   ros-ws-bridge:
     image: uobflightlabstarling/rosbridge-suite:latest
@@ -25,3 +28,4 @@ services:
     ports:
     - 9090:9090
     network_mode: host
+    restart: always
