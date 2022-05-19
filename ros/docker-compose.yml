@@ -1,5 +1,8 @@
 version: "2"
 
+volumes:
+  prom-data:
+
 services:
   uros-agent:
     image: microros/micro-ros-agent:galactic
@@ -25,7 +28,16 @@ services:
     image: uobflightlabstarling/rosbridge-suite:latest
     volumes:
     - ./rosbridge_websocket_launch.xml:/opt/ros/foxy/share/rosbridge_server/launch/rosbridge_websocket_launch.xml
-    ports:
-    - 9090:9090
+    # ports:
+    # - 9090:9090
     network_mode: host
     restart: always
+
+  prom:
+    image: prom/prometheus
+    volumes:
+    - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    - prom-data:/prometheus/
+    ports:
+    - 9000:9090
+    # network_mode: host
