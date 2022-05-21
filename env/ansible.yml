@@ -53,9 +53,11 @@
     - ros-{{ ros_version }}-turtle-tf2-cpp
     - ros-{{ ros_version }}-tf2-tools 
     - ros-{{ ros_version }}-tf-transformations
+    - ros-{{ ros_version }}-joy
+    - ros-{{ ros_version }}-joy-teleop
+    - ros-{{ ros_version }}-teleop-twist-joy
     ros_desktop_packages:
     - ros-{{ ros_version }}-desktop
-    - ros-{{ ros_version }}-joy-teleop
     ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
     ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
   tasks:
