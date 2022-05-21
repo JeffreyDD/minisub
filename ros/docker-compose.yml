@@ -25,11 +25,12 @@ services:
     restart: always
 
   ros-ws-bridge:
-    image: uobflightlabstarling/rosbridge-suite:latest
-    volumes:
-    - ./rosbridge_websocket_launch.xml:/opt/ros/foxy/share/rosbridge_server/launch/rosbridge_websocket_launch.xml
-    # ports:
-    # - 9090:9090
+    image: ryanfriedman/rosbridge-server:galactic_arm64
+    network_mode: host
+    restart: always
+
+  metric-exporter:
+    image: jeffreydd/minisub-metric-exporter:latest
     network_mode: host
     restart: always
 
@@ -40,4 +41,3 @@ services:
     - prom-data:/prometheus/
     ports:
     - 9000:9090
-    # network_mode: host
