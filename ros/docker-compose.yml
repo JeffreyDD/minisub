@@ -41,3 +41,8 @@ services:
     - prom-data:/prometheus/
     ports:
     - 9000:9090
+
+  minisub-ui:
+    image: jeffreydd/minisub-ui
+    ports:
+    - 8080:80
