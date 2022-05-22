@@ -10,6 +10,7 @@
     - curl 
     - gnupg
     - lsb-release
+    - nmap
     desktop_packages:
     - mate-desktop
     - terminator
