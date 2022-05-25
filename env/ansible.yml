@@ -11,9 +11,11 @@
     - gnupg
     - lsb-release
     - nmap
+    - python3-pip
     desktop_packages:
     - mate-desktop
     - terminator
+    username: minisub
   tasks:
 
   - name: Configure passwordless sudo
@@ -40,6 +42,12 @@
     apt:
       state: present
       name: "{{ desktop_packages }}"
+
+  - name: Add minisub user to docker group
+    user: 
+      name: "{{ username }}"
+      groups: docker
+      append: yes
 
 
 - name: Install ROS environment using system packages
@@ -86,3 +94,30 @@
     apt:
       state: present
       name: "{{ ros_desktop_packages }}"
+
+
+- name: Setup Bluetooth for RasPI on Ubuntu Server
+  hosts: localhost
+  become: true
+  tasks:
+
+  - name: Ensure proper Pi bluetooth package is installed 
+    apt:
+      state: present
+      name: pi-bluetooth
+    
+  - name: Add minisub user to docker group
+    user: 
+      name: "{{ username }}"
+      groups: bluetooth
+      append: yes
+
+  - name: Add bluetooth to kernel config
+    lineinfile:
+      path: /boot/firmware/usercfg.txt
+      line: include btcfg.txt
+
+  - name: Install evdev from pip to allow testing
+    pip:
+      state: present
+      name: evdev
