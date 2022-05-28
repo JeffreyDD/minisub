@@ -1,7 +1,7 @@
 # MiniSub Architecture
 
 
-## Local setup
+## Local setup (test rig)
 
 Local is easiest to use when testing locally as it only requires a single computer, and communicates with the vehicle over the ESP32's WiFi directly.
 
@@ -21,7 +21,7 @@ flowchart LR
 ```
 
 
-## Remote setup
+## Remote setup (MicroSub)
 
 The Remote setup is more robust and intended to allow the vehicle to perform autonomously while providing various methods to connect to the vehicle over long distances.
 
@@ -35,21 +35,22 @@ flowchart LR
     
     subgraph controller [RasPI Controlller on Vessel]
         agent_node[MicroROS Agent Node]
+        metric_exporter_node[Metric Exporter Node]
+        prometheus[Prometheus TSDB]
+
+        prometheus-->metric_exporter_node
     end
 
-    laptop<-->controller
+    laptop<-- wifi -->controller
 
-    subgraph motor_1_node [ESP32 Motor Top Node]
-        motor_1_sub[Motor PWM Control Subscriber]
-    end
-    subgraph motor_2_node [ESP32 Motor Bottom Node]
-        motor_2_sub[Motor PWM Control Subscriber]
+    subgraph thruster_node [ESP32 Thruster Nodes]
+        thruster_twist_sub[Motor Control PWM Twist Subscriber]
+        thruster_power_pub[Power Consumption Data Publisher]
     end
     subgraph imu_node [ESP32 IMU Node]
         imu_pub[IMU Publisher]
     end
 
-    motor_1_node-->agent_node
-    motor_2_node-->agent_node
+    thruster_node-->agent_node
     imu_node-->agent_node
 ```

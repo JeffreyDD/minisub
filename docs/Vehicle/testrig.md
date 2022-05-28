@@ -1,8 +1,10 @@
 # Test Rig
 
-Current development is done on a very bare-bones test rig, basically consisting of a watertight box with 2 thruster mounted to the bottom. The Test Rig is not meant to be submersible, instead it floats around the surface, to test control mechanics and electronics.
+Earlier development was done on a very bare-bones test rig, basically consisting of a watertight box with 2 thruster mounted to the bottom. The Test Rig wass not meant to be submersible, instead it floats around the surface, to test control mechanics and electronics.
 
-![MiniSub TestRig](../assets/images/TestRig_MicroSub01_v5.png)
+![MiniSub TestRig](../assets/images/TestRig_v5.png)
+
+<iframe width="1045" height="588" src="https://www.youtube.com/embed/4M2-e08qgC8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Bill of Materials
 
