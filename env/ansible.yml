@@ -132,7 +132,7 @@
 - name: Setup Bluetooth for RasPI on Ubuntu Server
   hosts: localhost
   become: true
-  when: 'raspi' in ansible_kernel
+  when: "raspi" in ansible_kernel
   tasks:
 
   - name: Ensure proper Pi bluetooth package is installed 
@@ -160,7 +160,7 @@
 - name: Setup VirtualBox guest additions
   hosts: localhost
   become: true
-  when: ansible_virtualization_type = 'virtualbox'
+  when: ansible_virtualization_type = "virtualbox"
   pre_tasks:
   - shell: ansible-galaxy install PeterMosmans.virtualbox-guest
   roles:
