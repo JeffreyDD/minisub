@@ -132,29 +132,29 @@
 - name: Setup Bluetooth for RasPI on Ubuntu Server
   hosts: localhost
   become: true
-  when: "'raspi' in ansible_kernel"
   tasks:
+  - when: "'raspi' in ansible_kernel"
+    block:
+    - name: Ensure proper Pi bluetooth package is installed 
+      apt:
+        state: present
+        name: pi-bluetooth
+      
+    - name: Add minisub user to docker group
+      user: 
+        name: "{{ username }}"
+        groups: bluetooth
+        append: yes
 
-  - name: Ensure proper Pi bluetooth package is installed 
-    apt:
-      state: present
-      name: pi-bluetooth
-    
-  - name: Add minisub user to docker group
-    user: 
-      name: "{{ username }}"
-      groups: bluetooth
-      append: yes
+    - name: Add bluetooth to kernel config
+      lineinfile:
+        path: /boot/firmware/usercfg.txt
+        line: include btcfg.txt
 
-  - name: Add bluetooth to kernel config
-    lineinfile:
-      path: /boot/firmware/usercfg.txt
-      line: include btcfg.txt
-
-  - name: Install evdev from pip to allow testing
-    pip:
-      state: present
-      name: evdev
+    - name: Install evdev from pip to allow testing
+      pip:
+        state: present
+        name: evdev
 
 
 - name: Setup VirtualBox guest additions
