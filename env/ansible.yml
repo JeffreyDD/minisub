@@ -160,6 +160,8 @@
 - name: Setup VirtualBox guest additions
   hosts: localhost
   become: true
+  vars:
+    virtualbox_version: 6.1.34
   tasks:
 
   - when: "ansible_virtualization_type == 'virtualbox'"
