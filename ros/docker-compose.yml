@@ -2,6 +2,7 @@ version: "2"
 
 volumes:
   prom-data:
+  grafana-data:
 
 services:
   uros-agent:
@@ -42,6 +43,13 @@ services:
     ports:
     - 9000:9090
     restart: always
+
+  grafana:
+    image: grafana/grafana-oss
+    volumes:
+    - grafana-data:/var/lib/grafana
+    ports:
+    - 3000:3000
 
   minisub-ui:
     image: jeffreydd/minisub-ui
