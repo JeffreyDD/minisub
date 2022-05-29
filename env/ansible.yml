@@ -49,6 +49,38 @@
       groups: docker
       append: yes
 
+  - name: Configure interfaces through netplan
+    when: networking | default(False) == "true"
+    notify:
+    - netplan apply
+    copy:
+      dest: /etc/netplan/50-cloud-init.yaml
+      content: |
+        network:
+          version: 2
+          wifis:
+            renderer: networkd
+            wlan0:
+              optional: true
+              access-points:
+                JDD MiniSub:
+                  password: 0741aa060fe072459845f5d0245b7800de1a33ef069cd6ebc2210f9b1b2de4da
+              dhcp4: false
+              addresses: [10.0.2.85/24]
+              gateway4: 10.0.2.1
+              nameservers:
+                addresses: [8.8.8.8,8.8.4.4]
+          ethernets:
+            renderer: networkd
+            eth0:
+              dhcp4: true
+
+  handlers:
+
+  - name: netplan apply
+    become: true
+    shell: netplan apply
+
 
 - name: Install ROS environment using system packages
   hosts: localhost
@@ -58,6 +90,7 @@
     ros_packages:
     - ros-{{ ros_version }}-ros-base
     - ros-{{ ros_version }}-key-teleop
+    - ros-{{ ros_version }}-teleop-twist-keyboard
     - ros-{{ ros_version }}-turtlesim
     - ros-{{ ros_version }}-turtle-tf2-cpp
     - ros-{{ ros_version }}-tf2-tools 
