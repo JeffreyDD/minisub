@@ -155,3 +155,13 @@
     pip:
       state: present
       name: evdev
+
+
+- name: Setup VirtualBox guest additions
+  hosts: localhost
+  become: true
+  when: ansible_virtualization_type = 'virtualbox'
+  pre_tasks:
+  - shell: ansible-galaxy install PeterMosmans.virtualbox-guest
+  roles:
+  - role: PeterMosmans.virtualbox-guest
