@@ -166,4 +166,5 @@
     block: 
     - shell: ansible-galaxy install PeterMosmans.virtualbox-guest
 
-    - include_role: PeterMosmans.virtualbox-guest
+    - include_role: 
+        name: PeterMosmans.virtualbox-guest
