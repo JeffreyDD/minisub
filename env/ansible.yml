@@ -162,7 +162,7 @@
   become: true
   tasks:
 
-  - when: "ansible_virtualization_type = 'virtualbox'"
+  - when: "ansible_virtualization_type == 'virtualbox'"
     block: 
     - shell: ansible-galaxy install PeterMosmans.virtualbox-guest
 
