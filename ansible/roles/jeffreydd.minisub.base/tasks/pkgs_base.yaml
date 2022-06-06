@@ -1,4 +1,3 @@
-# Here we'll install base packages from built-in repo's
 - name: Update apt packages
   apt:
     name: "*"
@@ -9,3 +8,8 @@
   apt:
     state: present
     name: "{{ minisub_base_packages }}"
+
+- name: Install pip packages
+  pip: 
+    state: present
+    name: "{{ minisub_pip_packages }}"
