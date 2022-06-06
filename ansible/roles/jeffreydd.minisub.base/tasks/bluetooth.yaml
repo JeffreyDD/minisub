@@ -1,0 +1,20 @@
+- name: Ensure proper Pi bluetooth package is installed 
+  apt:
+    state: present
+    name: pi-bluetooth
+  
+- name: Add minisub user to docker group
+  user: 
+    name: "{{ minisub_username }}"
+    groups: bluetooth
+    append: yes
+
+- name: Add bluetooth to kernel config
+  lineinfile:
+    path: /boot/firmware/usercfg.txt
+    line: include btcfg.txt
+
+- name: Install evdev from pip to allow testing
+  pip:
+    state: present
+    name: evdev

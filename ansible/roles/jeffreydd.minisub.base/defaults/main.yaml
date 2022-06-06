@@ -1,0 +1,28 @@
+minisub_base_packages:
+- openssh-server
+- ansible
+- docker.io
+- docker-compose
+- curl 
+- gnupg
+- lsb-release
+- nmap
+- python3-pip
+- vim
+
+minisub_username: minisub
+
+minisub_ros_version: "{{ ros_distro | default('galactic') }}"
+minisub_ros_packages:
+- ros-{{ minisub_ros_version }}-ros-base
+- ros-{{ minisub_ros_version }}-key-teleop
+- ros-{{ minisub_ros_version }}-teleop-twist-keyboard
+- ros-{{ minisub_ros_version }}-turtlesim
+- ros-{{ minisub_ros_version }}-turtle-tf2-cpp
+- ros-{{ minisub_ros_version }}-tf2-tools 
+- ros-{{ minisub_ros_version }}-tf-transformations
+- ros-{{ minisub_ros_version }}-joy
+- ros-{{ minisub_ros_version }}-joy-teleop
+- ros-{{ minisub_ros_version }}-teleop-twist-joy
+minisub_ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
+minisub_ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg

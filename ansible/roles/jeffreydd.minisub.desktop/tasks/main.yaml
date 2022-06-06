@@ -1,0 +1,11 @@
+- name: Install system packages {{ minisub_desktop_packages | join(', ') }}
+  when: desktop | default(False) == "true"
+  apt:
+    state: present
+    name: "{{ minisub_desktop_packages }}"
+
+- name: Install ROS desktop apt packages {{ minisub_ros_desktop_packages | join(', ') }}
+  when: desktop | default(False) == "true"
+  apt:
+    state: present
+    name: "{{ minisub_ros_desktop_packages }}"

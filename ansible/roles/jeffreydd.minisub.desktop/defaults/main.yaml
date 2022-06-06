@@ -1,0 +1,5 @@
+minisub_desktop_packages:
+# - ubuntu-mate-desktop
+- terminator
+minisub_ros_desktop_packages:
+- ros-{{ minisub_ros_version }}-desktop
