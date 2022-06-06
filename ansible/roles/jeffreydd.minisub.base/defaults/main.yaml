@@ -9,6 +9,8 @@ minisub_base_packages:
 - nmap
 - python3-pip
 - vim
+- tree
+- iputils-ping
 
 minisub_username: minisub
 
