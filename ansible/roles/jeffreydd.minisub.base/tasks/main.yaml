@@ -5,6 +5,7 @@
 - include_tasks: pkgs_ros.yaml
 
 - include_tasks: pkgs_uros.yaml
+  when: ansible_architecture == 'aarch64'
 
 - include_tasks: netplan.yaml
   when: networking | default(False) == "true"
