@@ -31,5 +31,6 @@ minisub_ros_packages:
 - ros-{{ minisub_ros_version }}-teleop-twist-joy
 - python3-colcon-common-extensions
 - python3-rosdep
+- python3-vcstool
 minisub_ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
 minisub_ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
