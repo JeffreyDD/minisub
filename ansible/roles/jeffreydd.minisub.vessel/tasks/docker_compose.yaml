@@ -1,0 +1,7 @@
+- name: Setup Main Docker Compose containers
+  community.docker.docker_compose:
+    project_src: "{{ minisub_home }}/minisub/ros"
+    
+- name: Setup Metrics Docker Compose containers
+  community.docker.docker_compose:
+    project_src: "{{ minisub_home }}/minisub/ros/ws/src/minisub_metrics"
