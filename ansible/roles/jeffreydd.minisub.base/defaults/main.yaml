@@ -30,5 +30,12 @@ minisub_ros_packages:
 - ros-{{ minisub_ros_version }}-joy-teleop
 - ros-{{ minisub_ros_version }}-teleop-twist-joy
 - python3-colcon-common-extensions
+minisub_ros_repo: http://packages.ros.org/ros2/ubuntu
 minisub_ros_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.key
 minisub_ros_keyring: /usr/share/keyrings/ros-archive-keyring.gpg
+
+minisub_vcx_uros_packages:
+- vulcanexus-{{ minisub_ros_version }}-micro-ros-agent
+minisub_vcx_uros_repo: http://repo.vulcanexus.org/debian
+minisub_vcx_uros_key_url: https://raw.githubusercontent.com/eProsima/vulcanexus/main/vulcanexus.key
+minisub_vcx_uros_keyring: /usr/share/keyrings/vulcanexus-archive-keyring.gpg

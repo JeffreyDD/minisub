@@ -4,6 +4,8 @@
 
 - include_tasks: pkgs_ros.yaml
 
+- include_tasks: pkgs_uros.yaml
+
 - include_tasks: netplan.yaml
   when: networking | default(False) == "true"
 

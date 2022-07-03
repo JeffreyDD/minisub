@@ -8,7 +8,7 @@
   vars:
     arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else 'arm64' if ansible_architecture == 'aarch64' else ansible_architecture }}"
   apt_repository:
-    repo: "deb [arch={{ arch }} signed-by={{ minisub_ros_keyring }}] http://packages.ros.org/ros2/ubuntu {{ hostvars[inventory_hostname]['ansible_facts']['distribution_release'] }} main"
+    repo: "deb [arch={{ arch }} signed-by={{ minisub_ros_keyring }}] {{ minisub_ros_repo }} {{ hostvars[inventory_hostname]['ansible_facts']['distribution_release'] }} main"
     state: present
 
 - name: Install ROS apt packages {{ minisub_ros_packages | join(', ') }}
