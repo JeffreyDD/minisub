@@ -1,0 +1,6 @@
+minisub_desktop_packages:
+# - ubuntu-mate-desktop
+- terminator
+- remmina
+minisub_ros_desktop_packages:
+- ros-{{ minisub_ros_version }}-desktop

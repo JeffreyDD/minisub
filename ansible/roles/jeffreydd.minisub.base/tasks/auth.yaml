@@ -1,0 +1,13 @@
+- name: Configure passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add minisub user to docker group
+  user: 
+    name: "{{ minisub_username }}"
+    groups: docker
+    append: yes

@@ -1,0 +1,6 @@
+- name: Configure interfaces through netplan
+  notify:
+  - netplan apply
+  copy:
+    dest: /etc/netplan/50-cloud-init.yaml
+    content: "{{ lookup('template', 'netplan.yaml.j2') }}"

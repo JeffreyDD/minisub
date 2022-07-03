@@ -1,0 +1,13 @@
+- include_tasks: auth.yaml
+
+- include_tasks: pkgs_base.yaml
+
+- include_tasks: pkgs_ros.yaml
+
+- include_tasks: netplan.yaml
+  when: networking | default(False) == "true"
+
+- include_tasks: bluetooth.yaml
+  when: 
+  - "'raspi' in ansible_kernel"
+  - bluetooth | default(False) == "true"
