@@ -1,0 +1,16 @@
+- name: Ensure user service dir is present
+  file:
+    state: directory
+    path: "{{ minisub_home }}/.config/systemd/user/"
+
+- name: Create service file
+  vars:
+    svc_name: MicroROS Agent
+    svc_cmd: "{{ minisub_home }}/minisub/ros/rosh.sh ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888"
+  template:
+    src: systemd.service.j2
+    dest: "{{ minisub_home }}/.config/systemd/user/microros-agent.service"
+
+- name: Enable lingering (loginctl enable-linger $USER)
+
+- name: Enable (and start? or reboot?) service

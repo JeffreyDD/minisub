@@ -1,0 +1,8 @@
+[Unit]
+Description=MicroROS Agent
+
+[Service]
+ExecStart=/home/minisub/minisub/ros/rosh.sh ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+
+[Install]
+WantedBy=default.target

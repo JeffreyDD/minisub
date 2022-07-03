@@ -1,0 +1,9 @@
+- name: Source ROS
+  lineinfile:
+    path: "{{ minisub_home }}/.bashrc"
+    line: "source /opt/ros/{{ minisub_ros_version }}/setup.bash"
+
+- name: Source MiniSub ROS workspace
+  lineinfile:
+    path: "{{ minisub_home }}/.bashrc"
+    line: "source {{ minisub_home }}/minisub/ros/ws/install/local_setup.bash"
