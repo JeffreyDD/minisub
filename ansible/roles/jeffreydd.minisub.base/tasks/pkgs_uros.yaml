@@ -15,3 +15,4 @@
   apt:
     state: present
     name: "{{ minisub_vcx_uros_packages }}"
+    update_cache: true
